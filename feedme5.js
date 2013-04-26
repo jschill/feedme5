@@ -90,6 +90,10 @@ Stores = new Meteor.Collection('stores');
             }
         });
 
+        Template.storeView.storeName = function() {
+            return Session.get("storeName");
+        }
+
         Template.storeView.events({
             'keypress input': function (e, t) {
                 if (e.keyCode === 13) {
@@ -103,6 +107,7 @@ Stores = new Meteor.Collection('stores');
         Template.storeList.events({
             'click .name': function (e, t) {
                 Session.set("store", t.data._id);
+                Session.set("storeName", t.data.name);
             },
             'click .del': function (e, t) {
                 Stores.remove({_id: t.data._id});
