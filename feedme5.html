@@ -11,7 +11,11 @@
     <input type="text" placeholder="new item"/>
     <ul>
     {{#each list}}
-        <li>{{name}}</li>
+        {{> item}}
     {{/each}}
     </ul>
+</template>
+
+<template name="item">
+    <li>{{name}} <span>[del]</span></li>
 </template>

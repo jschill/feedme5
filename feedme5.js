@@ -10,7 +10,11 @@ if (Meteor.isClient) {
             }
         }
     });
-    
+    Template.item.events({
+        'click span': function(e, t) {
+            List.remove({_id:t.data._id});
+        }
+    });
     Template.shoppingList.list = function() {
         return List.find();
     };
