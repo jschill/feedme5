@@ -45,12 +45,25 @@
 </template>
 
 <template name="storeView">
-    <h3>Coop</h3>
-    <ul data-sortable="true">
-    {{#each list}}
-        <li data-id="{{_id}}">{{name}}</li>
-    {{/each}}
+    <h3>Stores</h3>
+    <input type="text" placeholder="new store"/>
+    <ul>
+        {{#each stores}}
+            {{> storeList}}
+        {{/each}}
     </ul>
+    {{#if storeSet}}
+        <ul data-sortable="true">
+        {{#each list}}
+            <li data-id="{{_id}}">{{name}}</li>
+        {{/each}}
+        </ul>
+    {{/if}}
+</template>
+
+
+<template name="storeList">
+    <li><span class="name">{{name}}</span> <span class="del">[del]</span></li>
 </template>
 
 <template name="shoppingView">
@@ -60,6 +73,14 @@
         {{> shoppingItem}}
     {{/each}}
     </ul>
+    <p>Select a store:</p>
+    {{#each stores}}
+        {{> shopByStore}}
+    {{/each}}
+</template>
+
+<template name="shopByStore">
+    <li class="name">{{name}}</li>
 </template>
 
 <template name="shoppingItem">
