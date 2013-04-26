@@ -1,16 +1,21 @@
-if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return "Welcome to feedme5.";
-  };
+List = new Meteor.Collection('list');
 
-  Template.hello.events({
-    'click input' : function () {
-      // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
-        console.log("You pressed the button");
-    }
-  });
+if (Meteor.isClient) {
+    Template.shoppingList.events({
+        'keypress input': function(e, t) {
+            if (e.keyCode === 13) {
+                var input = t.find('input');
+                List.insert({name:input.value});
+                input.value = '';
+            }
+        }
+    });
+    
+    Template.shoppingList.list = function() {
+        return List.find();
+    };
 }
+
 
 if (Meteor.isServer) {
   Meteor.startup(function () {

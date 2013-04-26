@@ -1,13 +1,17 @@
 <head>
-  <title>feedme5</title>
+    <title>feedme5</title>
 </head>
 
 <body>
-  {{> hello}}
+    {{> shoppingList}}
 </body>
 
-<template name="hello">
-  <h1>Hello World!</h1>
-  {{greeting}}
-  <input type="button" value="Click" />
+<template name="shoppingList">
+    <h1>Shopping List</h1>
+    <input type="text" placeholder="new item"/>
+    <ul>
+    {{#each list}}
+        <li>{{name}}</li>
+    {{/each}}
+    </ul>
 </template>
