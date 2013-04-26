@@ -110,8 +110,13 @@ Stores = new Meteor.Collection('stores');
                 Session.set("storeName", t.data.name);
             },
             'click .del': function (e, t) {
-                Stores.remove({_id: t.data._id});
-                //clean up to remove from the List database
+                var id = t.data._id;
+                Stores.remove({_id: id});
+                List.find().forEach(function(list) {
+                    var unsetInfo = {};
+                    unsetInfo[id] = '';
+                    List.update({_id: list._id}, {$unset: unsetInfo});
+                });
             }
         });
 
