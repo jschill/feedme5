@@ -54,9 +54,19 @@ if (Meteor.isClient) {
             e.preventDefault();
         }
     });
+    Template.storeView.rendered = function() {
+        $('ul[data-sortable="true"]').sortable({stop: function(event, ui) {
+            $(ui.item).parent().find('li').each(function(index, item) {
+                List.update({_id:$(item).attr('data-id')}, {$set: {coop:index}});
+            });
+        }});
+    };
+    Template.storeView.list = function() {
+        return List.find({}, {sort:{coop:1}});
+    };
 
     Template.shoppingView.list = function() {
-        return List.find({included:true});
+        return List.find({included:true}, {sort:{coop:1}});
     };
     Template.shoppingItem.events({
         'click .name': function(e, t) {

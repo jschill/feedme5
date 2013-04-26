@@ -28,7 +28,7 @@
     {{#if adminDbMode}}
         {{> dbView }}
     {{else}}
-        <h3>Stores</h3>
+        {{> storeView }}
     {{/if}}
 </template>
 
@@ -40,9 +40,17 @@
     {{/each}}
     </ul>
 </template>
-
 <template name="dbItem">
     <li><input type="checkbox" name="included" {{#if included}}checked{{/if}} ><span onclick="void(0)" class="name">{{name}}</span> <span onclick="void(0)" class="del">[del]</span></li>
+</template>
+
+<template name="storeView">
+    <h3>Coop</h3>
+    <ul data-sortable="true">
+    {{#each list}}
+        <li data-id="{{_id}}">{{name}}</li>
+    {{/each}}
+    </ul>
 </template>
 
 <template name="shoppingView">
