@@ -17,5 +17,5 @@
 </template>
 
 <template name="item">
-    <li>{{name}} <span>[del]</span></li>
+    <li><span class="name {{#if checked}}checked{{/if}}">{{name}}</span> <span class="del">[del]</span></li>
 </template>

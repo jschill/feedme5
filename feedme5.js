@@ -11,8 +11,11 @@ if (Meteor.isClient) {
         }
     });
     Template.item.events({
-        'click span': function(e, t) {
+        'click .del': function(e, t) {
             List.remove({_id:t.data._id});
+        },
+        'click .name': function(e, t) {
+            List.update({_id:t.data._id}, {$set: {checked:t.data.checked ? false : true}});
         }
     });
     Template.shoppingList.list = function() {
