@@ -10,17 +10,19 @@ if (Meteor.isClient) {
     };
     Template.shoppingList.events({
         'click #admin': function(e, t) {
-            Session.set("mode", "admin"); 
+            Session.set("mode", "admin");
+            e.preventDefault();
         },
         'click #shoppingList': function(e, t) {
-            Session.set("mode", "shoppingList"); 
+            Session.set("mode", "shoppingList");
+            e.preventDefault();
         }
     });
 
-    Template.adminView.list = function() {
+    Template.dbView.list = function() {
         return List.find();
     };
-    Template.adminView.events({
+    Template.dbView.events({
         'keypress input': function(e, t) {
             if (e.keyCode === 13) {
                 var input = t.find('input');
@@ -29,8 +31,7 @@ if (Meteor.isClient) {
             }
         }
     });
-    
-    Template.adminItem.events({
+    Template.dbItem.events({
         'click .del': function(e, t) {
             List.remove({_id:t.data._id});
         },
@@ -39,11 +40,24 @@ if (Meteor.isClient) {
         }
     });
 
-    
+    Session.set("adminMode", "db");
+    Template.adminView.adminDbMode = function() {
+        return Session.get("adminMode") === "db";
+    };
+    Template.adminView.events({
+        'click #adminDb': function(e, t) {
+            Session.set("adminMode", "db"); 
+            e.preventDefault();
+        },
+        'click #adminStores': function(e, t) {
+            Session.set("adminMode", "stores"); 
+            e.preventDefault();
+        }
+    });
+
     Template.shoppingView.list = function() {
         return List.find({included:true});
     };
-    
     Template.shoppingItem.events({
         'click .name': function(e, t) {
             List.update({_id:t.data._id}, {$set: {checked:t.data.checked ? false : true}});
