@@ -7,15 +7,44 @@
 </body>
 
 <template name="shoppingList">
-    <h1>Shopping List</h1>
+    <h1>FeedMe</h1>
+    <ul>
+    <li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
+    <li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
+    </ul>
+    {{#if adminMode}}
+        {{> adminView}}
+    {{else}}
+        {{> shoppingView}}
+    {{/if}}
+</template>
+
+<template name="adminView">
+    <h2>Admin</h2>
     <input type="text" placeholder="new item"/>
     <ul>
     {{#each list}}
-        {{> item}}
+        {{> adminItem}}
     {{/each}}
     </ul>
 </template>
 
-<template name="item">
-    <li><span onclick="void(0)" class="name {{#if checked}}checked{{/if}}">{{name}}</span> <span onclick="void(0)" class="del">[del]</span></li>
+<template name="adminItem">
+    <li><input type="checkbox" name="included" {{#if included}}checked{{/if}} ><span onclick="void(0)" class="name">{{name}}</span> <span onclick="void(0)" class="del">[del]</span></li>
+</template>
+
+<template name="shoppingView">
+    <h2>Shopping List</h2>
+    <ul>
+    {{#each list}}
+        {{> shoppingItem}}
+    {{/each}}
+    </ul>
+</template>
+
+<template name="shoppingItem">
+    <li>
+        <span onclick="void(0)" class="name {{#if checked}}checked{{/if}}" >{{name}}</span>
+        <span onclick="void(0)" class="del">[del]</span>
+    </li>
 </template>
