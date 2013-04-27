@@ -1,17 +1,15 @@
 
 <template name="shoppingView">
 	<section class="main">
-		<nav class="button-nav">
-			<ul>
-				{{#each stores}}
-					{{> shopByStore}}
-				{{/each}}
-			</ul>
-		</nav>
+		<menu class="button-nav">
+			{{#each stores}}
+				{{> shopByStore}}
+			{{/each}}
+		</menu>
 
 		<section class="listItems">
 			{{#if viewing}}
-				<a href="#" data-editMode="true" class="editMode">edit</a>
+				<a href="#" data-editMode="true" class="editMode">click to edit</a>
 				<ul>
 				{{#each list}}
 					{{> viewShoppingItem}}

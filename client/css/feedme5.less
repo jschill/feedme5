@@ -85,6 +85,8 @@ h1 {
 @background-color: #ffffff;
 @inactive-color: @muted-color;
 
+@admin-color: lighten(@muted-color, 12%);
+
 @button-color: @main-theme-color;
 @inactive-button-color: lighten(@button-color, 30%);
 @button-border: darken(@button-color, 10%);
@@ -120,6 +122,14 @@ input {
 	display: none;
 }
 
+.admin, .admin li.selected{
+	background-color: @admin-color;
+}
+
+nav.admin ul {
+	background-color: white;
+}
+
 .main {
 	.rounded-corners-bottom;
 	border: 1px solid @inactive-color;
@@ -136,7 +146,7 @@ input {
 	text-decoration:line-through
 }
 
-.selected {
+.editing .selected {
 }
 
 ul {
@@ -161,6 +171,9 @@ nav ul {
 	color: @editing-text-color;
 }
 
+.button-nav {
+}
+
 .button-nav li {
 	.rounded-corners;
 	background-color: @inactive-button-color;
@@ -171,6 +184,11 @@ nav ul {
 
  .button-nav li.selected {
 	background-color: @button-color;
+	border-color: @button-color;
+}
+
+.listItems {
+	margin: 10px 0;
 }
 
 .listItems ul {

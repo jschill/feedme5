@@ -1,11 +1,11 @@
 <template name="adminView">
-	<nav class="tabs">
+	<nav class="tabs admin">
 		<ul>
 			<li {{#if adminDbMode}}class="selected"{{/if}}><a href="#" id="adminDb">All Items</a></li>
 			<li {{#unless adminDbMode}}class="selected"{{/unless}}><a href="#" id="adminStores">Store Layout</a></li>
 		</ul>
 	</nav>
-	<section class="main">
+	<section class="main admin">
 		{{#if adminDbMode}}
 			{{> dbView }}
 		{{else}}
@@ -37,14 +37,12 @@
 			{{/each}}
 		</ul>
 	</section>
-	<h4>Store layout for:</h4>
-	<nav class="button-nav">
-		<ul>
-			{{#each stores}}
-				{{> storeList}}
-			{{/each}}
-		</ul>
-	</nav>
+	<h4>Edit store layout for:</h4>
+	<menu class="button-nav">
+		{{#each stores}}
+			{{> storeList}}
+		{{/each}}
+	</menu>
 
 	{{#if storeSet}}
 		<section class="listItems">
