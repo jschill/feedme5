@@ -1,92 +1,92 @@
 <head>
-    <title>feedme5</title>
+	<title>feedme5</title>
 </head>
 
 <body>
-    {{> shoppingList}}
+	{{> shoppingList}}
 </body>
 
 <template name="shoppingList">
-    <h1>FeedMe</h1>
-    <ul>
-    <li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
-    <li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
-    </ul>
-    {{#if adminMode}}
-        {{> adminView}}
-    {{else}}
-        {{> shoppingView}}
-    {{/if}}
+	<h1>FeedMe</h1>
+	<ul>
+	<li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
+	<li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
+	</ul>
+	{{#if adminMode}}
+		{{> adminView}}
+	{{else}}
+		{{> shoppingView}}
+	{{/if}}
 </template>
 
 <template name="adminView">
-    <h2>Admin</h2>
-    <ul>
-    <li {{#if adminDbMode}}class="selected"{{/if}}><a href="#" id="adminDb">DB</a></li>
-    <li {{#unless adminDbMode}}class="selected"{{/unless}}><a href="#" id="adminStores">Stores</a></li>
-    </ul>
-    {{#if adminDbMode}}
-        {{> dbView }}
-    {{else}}
-        {{> storeView }}
-    {{/if}}
+	<h2>Admin</h2>
+	<ul>
+	<li {{#if adminDbMode}}class="selected"{{/if}}><a href="#" id="adminDb">DB</a></li>
+	<li {{#unless adminDbMode}}class="selected"{{/unless}}><a href="#" id="adminStores">Stores</a></li>
+	</ul>
+	{{#if adminDbMode}}
+		{{> dbView }}
+	{{else}}
+		{{> storeView }}
+	{{/if}}
 </template>
 
 <template name="dbView">
-    <input type="text" placeholder="new item"/>
-    <ul>
-    {{#each list}}
-        {{> dbItem}}
-    {{/each}}
-    </ul>
+	<input type="text" placeholder="new item"/>
+	<ul>
+	{{#each list}}
+		{{> dbItem}}
+	{{/each}}
+	</ul>
 </template>
 <template name="dbItem">
-    <li><input type="checkbox" name="included" {{#if included}}checked{{/if}} ><span onclick="void(0)" class="name">{{name}}</span> <span onclick="void(0)" class="del">[del]</span></li>
+	<li><input type="checkbox" name="included" {{#if included}}checked{{/if}} ><span onclick="void(0)" class="name">{{name}}</span> <span onclick="void(0)" class="del">[del]</span></li>
 </template>
 
 <template name="storeView">
-    <h3>Stores</h3>
-    <input type="text" placeholder="new store"/>
-    <ul>
-        {{#each stores}}
-            {{> storeList}}
-        {{/each}}
-    </ul>
-    <h4>Item order at {{storeName}}</h4>
-    {{#if storeSet}}
-        <ul data-sortable="true">
-        {{#each list}}
-            <li data-id="{{_id}}">{{name}}</li>
-        {{/each}}
-        </ul>
-    {{/if}}
+	<h3>Stores</h3>
+	<input type="text" placeholder="new store"/>
+	<ul>
+		{{#each stores}}
+			{{> storeList}}
+		{{/each}}
+	</ul>
+	<h4>Item order at {{storeName}}</h4>
+	{{#if storeSet}}
+		<ul data-sortable="true">
+		{{#each list}}
+			<li data-id="{{_id}}">{{name}}</li>
+		{{/each}}
+		</ul>
+	{{/if}}
 </template>
 
 
 <template name="storeList">
-    <li><span class="name">{{name}}</span> <span class="del">[del]</span></li>
+	<li><span class="name">{{name}}</span> <span class="del">[del]</span></li>
 </template>
 
 <template name="shoppingView">
-    <h2>Shopping List</h2>
-    <ul>
-    {{#each list}}
-        {{> shoppingItem}}
-    {{/each}}
-    </ul>
-    <p>Select a store:</p>
-    {{#each stores}}
-        {{> shopByStore}}
-    {{/each}}
+	<h2>Shopping List</h2>
+	<ul>
+	{{#each list}}
+		{{> shoppingItem}}
+	{{/each}}
+	</ul>
+	<p>Select a store:</p>
+	{{#each stores}}
+		{{> shopByStore}}
+	{{/each}}
 </template>
 
 <template name="shopByStore">
-    <li class="name">{{name}}</li>
+	<li class="name">{{name}}</li>
 </template>
 
 <template name="shoppingItem">
-    <li>
-        <span onclick="void(0)" class="name {{#if checked}}checked{{/if}}" >{{name}}</span>
-        <span onclick="void(0)" class="del">[del]</span>
-    </li>
+	<li>
+		<span onclick="void(0)" class="name {{#if checked}}checked{{/if}}" >{{name}}</span>
+		<span onclick="void(0)" class="del">[del]</span>
+	</li>
 </template>
