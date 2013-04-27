@@ -1,0 +1,20 @@
+<head>
+	<title>feedme5</title>
+</head>
+
+<body>
+	{{> shoppingList}}
+</body>
+
+<template name="shoppingList">
+	<h1>FeedMe</h1>
+	<ul>
+	<li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
+	<li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
+	</ul>
+	{{#if adminMode}}
+		{{> adminView}}
+	{{else}}
+		{{> shoppingView}}
+	{{/if}}
+</template>
