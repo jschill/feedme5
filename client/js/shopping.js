@@ -18,9 +18,6 @@
 	Template.shoppingItem.events({
 		'click .name': function (e, t) {
 			List.update({_id: t.data._id}, {$set: {checked: t.data.checked ? false : true}});
-		},
-		'click .del': function (e, t) {
-			List.update({_id: t.data._id}, {$set: {included: false}});
 		}
 	});
 
