@@ -30,7 +30,7 @@ footer,header,hgroup,menu,nav,section {
 
 body {
 	font-family: arial, sans-serif;
-	font-size: 1.5em;
+	font-size: 130%;
 }
 
 h1 {
@@ -38,53 +38,67 @@ h1 {
 	margin: 20px;
 }
 
+.editMode {
+	font-size: 90%;
+	float: right;
+}
+
 .rounded-corners (@radius: 5px) {
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  -ms-border-radius: @radius;
-  -o-border-radius: @radius;
-  border-radius: @radius;
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	-ms-border-radius: @radius;
+	-o-border-radius: @radius;
+	border-radius: @radius;
 }
 
 .rounded-corners-top (@radius: 5px) {
-  -webkit-border-top-left-radius: @radius;
-  -moz-border-top-left-radius: @radius;
-  -ms-border-top-left-radius: @radius;
-  -o-border-top-left-radius: @radius;
-  border-top-left-radius: @radius;
+	-webkit-border-top-left-radius: @radius;
+	-moz-border-top-left-radius: @radius;
+	-ms-border-top-left-radius: @radius;
+	-o-border-top-left-radius: @radius;
+	border-top-left-radius: @radius;
 
-  -webkit-border-top-right-radius: @radius;
-  -moz-border-top-right-radius: @radius;
-  -ms-border-top-right-radius: @radius;
-  -o-border-top-right-radius: @radius;
-  border-top-right-radius: @radius;
+	-webkit-border-top-right-radius: @radius;
+	-moz-border-top-right-radius: @radius;
+	-ms-border-top-right-radius: @radius;
+	-o-border-top-right-radius: @radius;
+	border-top-right-radius: @radius;
 }
 
 .rounded-corners-bottom (@radius: 5px) {
-  -webkit-border-bottom-left-radius: @radius;
-  -moz-border-bottom-left-radius: @radius;
-  -ms-border-bottom-left-radius: @radius;
-  -o-border-bottom-left-radius: @radius;
-  border-bottom-left-radius: @radius;
+	-webkit-border-bottom-left-radius: @radius;
+	-moz-border-bottom-left-radius: @radius;
+	-ms-border-bottom-left-radius: @radius;
+	-o-border-bottom-left-radius: @radius;
+	border-bottom-left-radius: @radius;
 
-  -webkit-border-bottom-right-radius: @radius;
-  -moz-border-bottom-right-radius: @radius;
-  -ms-border-bottom-right-radius: @radius;
-  -o-border-bottom-right-radius: @radius;
-  border-bottom-right-radius: @radius;
+	-webkit-border-bottom-right-radius: @radius;
+	-moz-border-bottom-right-radius: @radius;
+	-ms-border-bottom-right-radius: @radius;
+	-o-border-bottom-right-radius: @radius;
+	border-bottom-right-radius: @radius;
 }
 
-@background-color: #ffffff;
-@inactive-color: #d3d3d3;
+@main-theme-color: #5dc8cd;
+@muted-color: #d3d3d3;
 
-@button-color: #5dc8cd;
+@background-color: #ffffff;
+@inactive-color: @muted-color;
+
+@button-color: @main-theme-color;
 @inactive-button-color: lighten(@button-color, 30%);
 @button-border: darken(@button-color, 10%);
-@separator: @inactive-color;
+@separator: @muted-color;
+@editing-theme-color: lighten(@muted-color, 15%);
+@editing-text-color: darken(@muted-color, 20%);
 
 a {
 	text-decoration: none;
 	color: black;
+}
+
+input {
+	font-size: 100%;
 }
 
 .tabs li.selected {
@@ -114,6 +128,10 @@ a {
 	padding: 10px;
 }
 
+.main ul {
+	clear: both;
+}
+
 .checked {
 	color:@inactive-color;
 	text-decoration:line-through
@@ -135,8 +153,14 @@ nav ul {
 	}
 }
 
-.button-nav ul {
-	margin-bottom: 20px;
+.sub-nav li {
+	.rounded-corners;
+	padding: 10px;
+}
+
+.editing {
+	background-color: @editing-theme-color;
+	color: @editing-text-color;
 }
 
 .button-nav li {
