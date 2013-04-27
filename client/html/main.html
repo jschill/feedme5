@@ -4,22 +4,25 @@
 </head>
 
 <body>
+	{{loginButtons}}
 	{{> shoppingList}}
 </body>
 
 <template name="shoppingList">
 	<h1>FeedMe</h1>
-	<nav class="tabs">
-		<ul>
-			<li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
-			<li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
-		</ul>
-	</nav>
-	<section class="main">
-		{{#if adminMode}}
-			{{> adminView}}
-		{{else}}
-			{{> shoppingView}}
-		{{/if}}
-	</section>
+	{{#if userLoggedIn}}
+		<nav class="tabs">
+			<ul>
+				<li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
+				<li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
+			</ul>
+		</nav>
+		<section class="main">
+			{{#if adminMode}}
+				{{> adminView}}
+			{{else}}
+				{{> shoppingView}}
+			{{/if}}
+		</section>
+	{{/if}}
 </template>
