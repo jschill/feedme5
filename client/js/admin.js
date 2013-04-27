@@ -70,6 +70,11 @@
 		}
 	});
 
+	Template.storeList.selected = function() {
+		var id = Session.get('store');
+		return id === this._id;
+	};
+
 	
 	Template.storeView.rendered = function () {
 		$('ul[data-sortable="true"]').sortable({stop: function (event, ui) {
