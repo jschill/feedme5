@@ -18,7 +18,7 @@
 		'click .del': function (e, t) {
 			List.remove({_id: t.data._id});
 		},
-		'click input[type=checkbox]': function (e, t) {
+		'click input[type=checkbox], click .name': function (e, t) {
 			List.update({_id: t.data._id}, {$set: {included: t.data.included ? false : true}});
 		}
 	});

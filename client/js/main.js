@@ -3,7 +3,7 @@
 (function () {
 	"use strict";
 		
-	Session.set("mode", "admin");
+	Session.set("mode", "shoppingList");
 
 	Template.shoppingList.adminMode = function () {
 		return Session.get("mode") === "admin";

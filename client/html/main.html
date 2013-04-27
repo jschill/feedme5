@@ -1,5 +1,6 @@
 <head>
 	<title>feedme5</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -8,13 +9,17 @@
 
 <template name="shoppingList">
 	<h1>FeedMe</h1>
-	<ul>
-	<li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
-	<li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
-	</ul>
-	{{#if adminMode}}
-		{{> adminView}}
-	{{else}}
-		{{> shoppingView}}
-	{{/if}}
+	<nav class="tabs">
+		<ul>
+			<li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
+			<li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
+		</ul>
+	</nav>
+	<section class="main">
+		{{#if adminMode}}
+			{{> adminView}}
+		{{else}}
+			{{> shoppingView}}
+		{{/if}}
+	</section>
 </template>

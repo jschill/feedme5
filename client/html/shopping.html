@@ -1,19 +1,24 @@
 
 <template name="shoppingView">
-	<h2>Shopping List</h2>
-	<ul>
-	{{#each list}}
-		{{> shoppingItem}}
-	{{/each}}
-	</ul>
-	<p>Select a store:</p>
-	{{#each stores}}
-		{{> shopByStore}}
-	{{/each}}
+	<nav class="button-nav">
+		<ul>
+			{{#each stores}}
+				{{> shopByStore}}
+			{{/each}}
+		</ul>
+	</nav>
+
+	<section class="listItems">
+		<ul>
+		{{#each list}}
+			{{> shoppingItem}}
+		{{/each}}
+		</ul>
+	</section>
 </template>
 
 <template name="shopByStore">
-	<li class="name">{{name}}</li>
+	<li onclick="void(0)" class="name {{#if selected}}selected{{/if}}">{{name}}</li>
 </template>
 
 <template name="shoppingItem">

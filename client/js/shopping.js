@@ -5,7 +5,7 @@
 	Meteor.startup(function () {
 		Deps.autorun(Template.shoppingView.list);
 	});
-	
+
 	Template.shoppingView.list = function () {
 		var store = Session.get("shopByStore"), sortInfo = {}, sort = {};
 		if (store) {
@@ -29,4 +29,10 @@
 			Session.set("shopByStore", t.data._id);
 		}
 	});
+
+	Template.shopByStore.selected = function() {
+		var id = Session.get('shopByStore');
+		return id === this._id;
+	};
+
 }());

@@ -1,0 +1,169 @@
+/* clear all */
+
+html, body, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+	margin:0;
+	padding:0;
+	border:0;
+	outline:0;
+	font-size:100%;
+	vertical-align:baseline;
+	background:transparent;
+}
+
+article,aside,details,figcaption,figure,
+footer,header,hgroup,menu,nav,section {
+	display:block;
+}
+
+/* feedme */
+
+body {
+	font-family: arial, sans-serif;
+	font-size: 1.5em;
+}
+
+h1 {
+	text-align: center;
+	margin: 20px;
+}
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.rounded-corners-top (@radius: 5px) {
+  -webkit-border-top-left-radius: @radius;
+  -moz-border-top-left-radius: @radius;
+  -ms-border-top-left-radius: @radius;
+  -o-border-top-left-radius: @radius;
+  border-top-left-radius: @radius;
+
+  -webkit-border-top-right-radius: @radius;
+  -moz-border-top-right-radius: @radius;
+  -ms-border-top-right-radius: @radius;
+  -o-border-top-right-radius: @radius;
+  border-top-right-radius: @radius;
+}
+
+.rounded-corners-bottom (@radius: 5px) {
+  -webkit-border-bottom-left-radius: @radius;
+  -moz-border-bottom-left-radius: @radius;
+  -ms-border-bottom-left-radius: @radius;
+  -o-border-bottom-left-radius: @radius;
+  border-bottom-left-radius: @radius;
+
+  -webkit-border-bottom-right-radius: @radius;
+  -moz-border-bottom-right-radius: @radius;
+  -ms-border-bottom-right-radius: @radius;
+  -o-border-bottom-right-radius: @radius;
+  border-bottom-right-radius: @radius;
+}
+
+@background-color: #ffffff;
+@inactive-color: #d3d3d3;
+
+@button-color: #5dc8cd;
+@inactive-button-color: lighten(@button-color, 30%);
+@button-border: darken(@button-color, 10%);
+@separator: @inactive-color;
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.tabs li.selected {
+	.rounded-corners-top;
+	border-top: 1px solid @inactive-color;
+	border-right: 1px solid @inactive-color;
+	border-left: 1px solid @inactive-color;
+	border-bottom:none;
+}
+
+.tabs li {
+	padding: 10px;
+	display: inline-block;
+}
+.tabs ul {
+	margin: 0;
+	border-bottom: 1px solid @inactive-color;
+}
+
+.main {
+	.rounded-corners-bottom;
+	border-bottom: 1px solid @inactive-color;
+	border-right: 1px solid @inactive-color;
+	border-left: 1px solid @inactive-color;
+	border-top:none;
+	margin: 0;
+	padding: 10px;
+}
+
+.checked {
+	color:@inactive-color;
+	text-decoration:line-through
+}
+
+.selected {
+	font-weight:bold;
+}
+
+ul {
+	list-style: none;
+}
+
+nav ul {
+
+	li {
+		display: inline;
+		list-style-type: none;
+	}
+}
+
+.button-nav ul {
+	margin-bottom: 20px;
+}
+
+.button-nav li {
+	.rounded-corners;
+	background-color: @inactive-button-color;
+	border: 1px solid @inactive-button-color;
+	padding: 5px 10px;
+	display: inline-block;
+}
+
+ .button-nav li.selected {
+	background-color: @button-color;
+}
+
+.listItems ul {
+	.rounded-corners;
+	border: 1px solid @separator;
+}
+.listItems li {
+	padding: 5px;
+	border-bottom: 1px solid @separator;
+}
+
+.listItems li:last-child{
+	border-bottom: none;
+}
+
+.del {
+	float: right;
+}

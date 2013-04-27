@@ -1,5 +1,4 @@
 <template name="adminView">
-	<h2>Admin</h2>
 	<ul>
 	<li {{#if adminDbMode}}class="selected"{{/if}}><a href="#" id="adminDb">DB</a></li>
 	<li {{#unless adminDbMode}}class="selected"{{/unless}}><a href="#" id="adminStores">Stores</a></li>
@@ -13,18 +12,19 @@
 
 <template name="dbView">
 	<input type="text" placeholder="new item"/>
-	<ul>
-	{{#each list}}
-		{{> dbItem}}
-	{{/each}}
-	</ul>
+	<section class="listItems">
+		<ul>
+		{{#each list}}
+			{{> dbItem}}
+		{{/each}}
+		</ul>
+	</section>
 </template>
 <template name="dbItem">
 	<li><input type="checkbox" name="included" {{#if included}}checked{{/if}} ><span onclick="void(0)" class="name">{{name}}</span> <span onclick="void(0)" class="del">[del]</span></li>
 </template>
 
 <template name="storeView">
-	<h3>Stores</h3>
 	<input type="text" placeholder="new store"/>
 	<ul>
 		{{#each stores}}
@@ -33,11 +33,13 @@
 	</ul>
 	<h4>Item order at {{storeName}}</h4>
 	{{#if storeSet}}
-		<ul data-sortable="true">
-		{{#each list}}
-			<li data-id="{{_id}}">{{name}}</li>
-		{{/each}}
-		</ul>
+		<section class="listItems">
+			<ul data-sortable="true">
+			{{#each list}}
+				<li data-id="{{_id}}">{{name}}</li>
+			{{/each}}
+			</ul>
+		</section>
 	{{/if}}
 </template>
 
