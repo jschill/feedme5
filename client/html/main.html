@@ -9,20 +9,19 @@
 </body>
 
 <template name="shoppingList">
-	<h1>FeedMe</h1>
 	{{#if userLoggedIn}}
-		<nav class="tabs">
-			<ul>
-				<li {{#unless adminMode}}class="selected"{{/unless}}><a href="#" id="shoppingList">Shopping List</a></li>
-				<li {{#if adminMode}}class="selected"{{/if}}><a href="#" id="admin">Admin</a></li>
-			</ul>
-		</nav>
-		<section class="main">
+		<nav class="main-nav">
 			{{#if adminMode}}
-				{{> adminView}}
+				<a href="#" id="shoppingList">Shopping List</a>
 			{{else}}
-				{{> shoppingView}}
+				<a href="#" id="admin">Admin</a>
 			{{/if}}
-		</section>
+		</nav>
+		<h1>FeedMe</h1>
+		{{#if adminMode}}
+			{{> adminView}}
+		{{else}}
+			{{> shoppingView}}
+		{{/if}}
 	{{/if}}
 </template>

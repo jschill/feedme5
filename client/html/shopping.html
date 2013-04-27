@@ -1,30 +1,32 @@
 
 <template name="shoppingView">
-	<nav class="button-nav">
-		<ul>
-			{{#each stores}}
-				{{> shopByStore}}
-			{{/each}}
-		</ul>
-	</nav>
-
-	<section class="listItems">
-		{{#if viewing}}
-			<a href="#" data-editMode="true" class="editMode">edit</a>
+	<section class="main">
+		<nav class="button-nav">
 			<ul>
-			{{#each list}}
-				{{> viewShoppingItem}}
-			{{/each}}
+				{{#each stores}}
+					{{> shopByStore}}
+				{{/each}}
 			</ul>
-		{{else}}
-			<a href="#" data-editMode="true" class="editMode">done</a>
-			<ul class="editing">
-			{{#each editList}}
-				{{> editShoppingItem}}
-			{{/each}}
-			</ul>
-		{{/if}}
+		</nav>
 
+		<section class="listItems">
+			{{#if viewing}}
+				<a href="#" data-editMode="true" class="editMode">edit</a>
+				<ul>
+				{{#each list}}
+					{{> viewShoppingItem}}
+				{{/each}}
+				</ul>
+			{{else}}
+				<a href="#" data-editMode="true" class="editMode">done</a>
+				<ul class="editing">
+				{{#each editList}}
+					{{> editShoppingItem}}
+				{{/each}}
+				</ul>
+			{{/if}}
+
+		</section>
 	</section>
 </template>
 
