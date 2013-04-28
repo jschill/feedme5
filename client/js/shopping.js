@@ -4,6 +4,7 @@
 	"use strict";
 	Meteor.startup(function () {
 		Deps.autorun(Template.shoppingView.list);
+		Session.set('show-checked', true);
 	});
 
 	Session.set("viewing", true);
@@ -29,11 +30,20 @@
 		return result;
 	};
 
+	Template.viewShoppingItem.showChecked = function() {
+		var showChecked = Session.get('show-checked');
+		return !this.checked || showChecked;
+	};
+
 	Template.shoppingView.events({
 		'click a[data-clear="true"]': function (e, t) {
 			List.find().forEach(function(list) {
 				List.update({_id: list._id}, {$set: {checked: false}});
 			});
+			e.preventDefault();
+		},
+		'click a[data-toggle="true"]': function (e, t) {
+			Session.set('show-checked', !Session.get('show-checked'));
 			e.preventDefault();
 		},
 		'click a[data-editMode="true"]': function (e, t) {
