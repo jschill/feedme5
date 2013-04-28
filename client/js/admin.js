@@ -45,7 +45,7 @@
 
 	var setDefaultSortingForStore = function(storeId) {
 		var index = 0, setInfo = {};
-		List.find().forEach(function(list) {
+		List.find({}, {sort: {name:1}}).forEach(function(list) {
 			setInfo[storeId] = index;
 			List.update({_id: list._id}, {$set: setInfo});
 			index += 1;
