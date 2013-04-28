@@ -80,6 +80,7 @@ h1 {
 }
 
 @main-theme-color: #5dc8cd;
+@selected-row-color: lighten(@main-theme-color, 30%);
 @muted-color: #d3d3d3;
 
 @background-color: #ffffff;
@@ -187,10 +188,16 @@ nav ul {
 	border-color: @button-color;
 }
 
+.listItems .selected {
+	color: black;	
+}
+
+.listItems li:hover {
+	background-color: @selected-row-color;
+}
 .listItems {
 	margin: 10px 0;
 }
-
 .listItems ul {
 	.rounded-corners;
 	border: 1px solid @separator;
