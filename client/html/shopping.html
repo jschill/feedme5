@@ -16,6 +16,7 @@
 				{{/each}}
 				</ul>
 			{{else}}
+				<input type="checkbox" name="check-all" {{#if somethingIncluded}}checked="checked"{{/if}}>
 				<a href="#" data-editMode="true" class="editMode">done</a>
 				<ul class="editing">
 				{{#each editList}}
