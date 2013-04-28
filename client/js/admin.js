@@ -9,7 +9,11 @@
 		'keypress input': function (e, t) {
 			if (e.keyCode === 13) {
 				var input = t.find('input');
-				List.insert({name: input.value, owner: Meteor.userId()});
+				var o = {name: input.value, owner: Meteor.userId()};
+				Stores.find().forEach(function(store) {
+					o[store._id] = -1;
+				});
+				List.insert(o);
 				input.value = '';
 			}
 		}
