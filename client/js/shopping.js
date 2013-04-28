@@ -30,6 +30,12 @@
 	};
 
 	Template.shoppingView.events({
+		'click a[data-clear="true"]': function (e, t) {
+			List.find().forEach(function(list) {
+				List.update({_id: list._id}, {$set: {checked: false}});
+			});
+			e.preventDefault();
+		},
 		'click a[data-editMode="true"]': function (e, t) {
 			Session.set("viewing", !Session.get("viewing"));
 			e.preventDefault();
