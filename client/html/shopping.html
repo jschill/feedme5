@@ -1,20 +1,23 @@
 
 <template name="shoppingView">
 	<section class="main">
+		{{#if viewing}}
+			<a href="#" data-editMode="true" class="editMode">click to edit</a>
+		{{else}}
+			<a href="#" data-editMode="true" class="editMode">done</a>
+		{{/if}}
 
 		{{> stores}}}
 		<section class="listItems">
 			{{#if viewing}}
-				<a href="#" data-editMode="true" class="editMode">click to edit</a>
-				<a href="#" data-clear="true">clear</a>
+				<a href="#" data-clear="true">clear</a> | 
 				<a href="#" data-toggle="true">toggle</a>
-				<ul>
+				<ul class="list">
 				{{#each list}}
 					{{> viewShoppingItem}}
 				{{/each}}
 				</ul>
 			{{else}}
-				<a href="#" data-editMode="true" class="editMode">done</a>
 				{{> editShoppingList}}
 			{{/if}}
 
@@ -24,7 +27,7 @@
 
 <template name="stores">
 	{{#unless viewing}}
-		<input type="text" placeholder="new store"/>
+		<input type="text" placeholder="add store"/>
 	{{/unless}}
 	<menu class="button-nav {{#if viewing}}viewing{{/if}}">
 		{{#each stores}}
@@ -35,7 +38,9 @@
 </template>
 
 <template name="shopByStore">
-	<li onclick="void(0)" class="name {{#if selected}}selected{{/if}}">{{name}}  <span class="del">X</span></li>
+	<li onclick="void(0)" class="name {{#if selected}}selected{{/if}}">
+		<span>{{name}}</span>
+		<a href="#" class="del">X</a></li>
 </template>
 
 <template name="viewShoppingItem">

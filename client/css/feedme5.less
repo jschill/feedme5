@@ -43,6 +43,10 @@ h1 {
 	float: right;
 }
 
+a:hover {
+	color: @main-theme-color;
+}
+
 .rounded-corners (@radius: 5px) {
 	-webkit-border-radius: @radius;
 	-moz-border-radius: @radius;
@@ -129,6 +133,12 @@ input {
 	float:none;
 }
 
+.button-nav li {
+	-moz-box-shadow: 2px 2px 5px @inactive-color;
+	-webkit-box-shadow: 2px 2px 5px @inactive-color;
+	box-shadow: 2px 2px 5px @inactive-color;
+}
+
 .viewing .del {
 	display: none;
 }
@@ -177,12 +187,17 @@ nav ul {
 	padding: 10px;
 }
 
+.list {
+	margin: 5px 0 0;
+}
+
 .editing {
 	background-color: @editing-theme-color;
 	color: @editing-text-color;
 }
 
 .button-nav {
+	margin: 10px 0;
 }
 
 .button-nav li {
