@@ -15,6 +15,17 @@
 		return List.find({}, sort);
 	};
 
+	Template.editShoppingList.somethingIncluded = function () {
+		console.log('somethingIncluded');
+		var result = false;
+		List.find().forEach(function(list) {
+			console.log('somethingIncluded loop', result);
+			result = result || list.included;
+		});
+		console.log('somethingIncluded return', result);
+		return result;
+	};
+
 	Template.editShoppingList.storeSet = function () {
 		return !!Session.get("shopByStore");
 	};

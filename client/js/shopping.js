@@ -28,14 +28,6 @@
 		return List.find({included: true}, sort);
 	};
 
-	Template.shoppingView.somethingIncluded = function () {
-		var result = false;
-		List.find().forEach(function(list) {
-			result = result || list.included;
-		});
-		return result;
-	};
-
 	Template.stores.stores = function () {
 		return Stores.find();
 	};
