@@ -23,7 +23,7 @@
 		'keypress input[name=add]': function (e, t) {
 			if (e.keyCode === 13) {
 				var input = t.find('input[type=text]');
-				var o = {name: input.value, owner: Meteor.userId()};
+				var o = {name: input.value, owner: Meteor.userId(), included:true};
 				Stores.find().forEach(function(store) {
 					o[store._id] = findLowestSortOrder(store._id) - 1;
 				});
@@ -120,7 +120,7 @@
 
 	Template.editShoppingItem.hasExtra = function() {
 		var list = List.findOne({_id:this._id});
-		return list.extra;
+		return list && !!list.extra;
 	};
 
 })();
