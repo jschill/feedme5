@@ -17,14 +17,14 @@
 
 	Template.shoppingView.list = function () {
 		var store = Session.get("shopByStore"), sortInfo = {}, sort = {};
-		
+
 		if (Session.get('alpha-sort')) {
 			sortInfo['name'] = 1;
 			sort = {sort: sortInfo};
 		} else if (store) {
 			sortInfo[store] = 1;
 			sort = {sort: sortInfo};
-		} 
+		}
 		return List.find({included: true}, sort);
 	};
 
@@ -68,6 +68,11 @@
 			e.preventDefault();
 		}
 	});
+
+	Template.shoppingView.toggleLabel = function() {
+		var showChecked = Session.get('show-checked');
+		return showChecked ? 'hide' : 'show';
+	};
 
 	Template.viewShoppingItem.showChecked = function() {
 		var showChecked = Session.get('show-checked');
