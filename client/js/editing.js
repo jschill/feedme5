@@ -111,7 +111,9 @@
 		},
 		'keypress input[name=name]': function(e, t) {
 			if (e.keyCode === 13) {
-				List.update({_id: t.data._id}, {$set: {name: e.currentTarget.value}});
+				if (e.currentTarget.value) {
+					List.update({_id: t.data._id}, {$set: {name: e.currentTarget.value}});
+				}
 				Session.set('edit-' + t.data._id, false);
 			}
 		},
