@@ -45,10 +45,12 @@
 
 	Template.editShoppingList.rendered = function () {
 		$('ul[data-sortable="true"]').sortable({stop: function (event, ui) {
-			var setInfo = {};
-			$(ui.item).parent().find('li').each(function (index, item) {
-				setInfo[Session.get("shopByStore")] = index;
-				List.update({_id: $(item).attr('data-id')}, {$set: setInfo});
+			Deps.nonreactive(function() {
+				var setInfo = {};
+				$(ui.item).parent().find('li').each(function (index, item) {
+					setInfo[Session.get("shopByStore")] = index;
+					List.update({_id: $(item).attr('data-id')}, {$set: setInfo});
+				});
 			});
 		}});
 		$('ul[data-sortable="false"]:data(uiSortable)').sortable('destroy');
