@@ -57,9 +57,11 @@
 		'keypress input': function (e, t) {
 			if (e.keyCode === 13) {
 				var input = t.find('input');
-				var storeId = Stores.insert({name: input.value, owner: Meteor.userId()});
-				input.value = '';
-				setDefaultSortingForStore(storeId);
+				if (input.value) {
+					var storeId = Stores.insert({name: input.value, owner: Meteor.userId()});
+					input.value = '';
+					setDefaultSortingForStore(storeId);
+				}
 			}
 		},
 		'click [data-alpha-sort="true"]': function (e, t) {
