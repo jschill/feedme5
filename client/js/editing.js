@@ -41,11 +41,19 @@
 						o[store._id] = findLowestSortOrder(store._id) - 1;
 					});
 					List.insert(o);
+					checkFirstLetterOfInsertedItem(input.value);
 					input.value = '';
 				}
 			}
 		}
 	});
+
+	var checkFirstLetterOfInsertedItem = function(item) {
+		var letter = item.substr(0, 1);
+		if (Session.get('selectedLetter')) {
+			Session.set('selectedLetter', letter);
+		}
+	};
 
 	var findLowestSortOrder = function(storeId) {
 		var result = Number.MAX_VALUE;
