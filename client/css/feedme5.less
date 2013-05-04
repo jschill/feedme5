@@ -69,9 +69,10 @@ footer,header,hgroup,menu,nav,section {
 @main-theme-color: #5dc8cd;
 @main-background-color: #a1e3e6;
 @accent-color: #FF7673;
-/*darken(@main-theme-color, 30%);*/
 @secondary-background-color: #ffffff;
 @selected-row-color: lighten(@main-theme-color, 30%);
+@selected-color: @main-theme-color;
+@secondary-selected-color: @selected-row-color;
 @muted-color: #d3d3d3;
 
 @inactive-color: @muted-color;
@@ -111,7 +112,7 @@ h1 {
 }
 
 a:hover {
-	color: @main-theme-color;
+	color: @selected-color;
 }
 
 a {
@@ -121,39 +122,47 @@ a {
 
 input {
 	font-size: 100%;
-}
-
-.tabs li.selected {
-	.rounded-corners-top;
-	border-top: 1px solid @inactive-color;
-	border-right: 1px solid @inactive-color;
-	border-left: 1px solid @inactive-color;
-	border-bottom:none;
-}
-
-.tabs li {
-	padding: 10px;
-	display: inline-block;
-}
-
-.tabs ul {
+	padding: 0;
 	margin: 0;
 }
 
-.button-nav .del {
+.tabs{
+	ul {
+		margin: 0;
+	}
+
+	li {
+		padding: 10px;
+		display: inline-block;
+	}
+
+	li.selected {
+		.rounded-corners-top;
+		border-top: 1px solid @inactive-color;
+		border-right: 1px solid @inactive-color;
+		border-left: 1px solid @inactive-color;
+		border-bottom:none;
+	}	
+}
+
+.del {
 	font-size: 80%;
 	font-weight: bold;
 	color: @inactive-color;
 	margin-left: 40px;
-	display: inline-block;
-	text-align: right;
-	float:none;
+	padding: 5px 0;
 }
 
-.button-nav li {
-	-moz-box-shadow: 2px 2px 5px @inactive-color;
-	-webkit-box-shadow: 2px 2px 5px @inactive-color;
-	box-shadow: 2px 2px 5px @inactive-color;
+.button-nav {
+	li {
+		-moz-box-shadow: 2px 2px 5px @inactive-color;
+		-webkit-box-shadow: 2px 2px 5px @inactive-color;
+		box-shadow: 2px 2px 5px @inactive-color;
+	}
+
+	 .del:hover {
+		color: @secondary-selected-color;
+	}
 }
 
 .viewing .del {
@@ -244,10 +253,15 @@ nav ul {
 	}
 
 	li {
-		padding: 5px;
+		padding: 5px 10px;
 		border-bottom: 1px solid @separator;
 	}
 
+	li:after {
+		clear: both;
+		content: '';
+		display: block;
+	}
 	.listItems li:last-child{
 		border-bottom: none;
 	}
@@ -255,11 +269,13 @@ nav ul {
 	li:hover {
 		background-color: @selected-row-color;
 	}
+
+	.del {
+		float:right;
+	}
+
 }
 
-.del {
-	float:right;
-}
 
 .letter-nav .selected {
 	font-weight: bold;
