@@ -3,9 +3,9 @@
 (function () {
 	"use strict";
 	Template.editShoppingList.list = function () {
-		var store = Session.get("shopByStore"), sortInfo = {}, sort = {}, query = {}, selectedLetter;
+		var store = Session.get("shopByStore"), sortInfo = {}, sort = {}, query = {}, selectedLetter, alphaSort = Session.get('alpha-sort');
 
-		if (Session.get('alpha-sort')) {
+		if (alphaSort) {
 			selectedLetter = Session.get('selectedLetter');
 			if (selectedLetter) {
 				query = {$where: function() { return this.name.substr(0, 1) === selectedLetter; }};
@@ -16,7 +16,12 @@
 			sortInfo[store] = 1;
 			sort = {sort: sortInfo};
 		}
-		return List.find(query, sort);
+		var result = List.find(query, sort);
+		if (alphaSort && result.fetch().length === 0) {
+			Session.set('selectedLetter', undefined);
+			return;
+		}
+		return result;
 	};
 
 	Template.editShoppingList.somethingIncluded = function () {
