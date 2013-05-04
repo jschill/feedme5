@@ -1,0 +1,17 @@
+{
+	"private": true,
+	"name": "feedme",
+	"description": "Grunt tasks deps. Just used to 'npm install' dependencies",
+	"version": "0.0.1",
+	"main": "Gruntfile.js",
+	"engines": {
+		"node": "~0.8.0"
+	},
+	"devDependencies": {
+		"grunt": "~0.4.1",
+		"grunt-contrib-jasmine": "~0.4.2",
+		"grunt-contrib-jshint": "~0.4.3",
+		"grunt-contrib-watch": "~0.4.0",
+		"grunt-template-jasmine-istanbul": "~0.2.1"
+	}
+}

@@ -1,51 +1,53 @@
-/*global Meteor, Session, Template, List */
+(function (g) {
 
-(function () {
 	"use strict";
-	Template.editShoppingList.list = function () {
-		var store = Session.get("shopByStore"), sortInfo = {}, sort = {}, query = {}, selectedLetter, alphaSort = Session.get('alpha-sort');
+
+	var $ = g.jQuery;
+
+	g.Template.editShoppingList.list = function () {
+		var store = g.Session.get("shopByStore"), sortInfo = {}, sort = {}, query = {}, selectedLetter, alphaSort = g.Session.get('alpha-sort');
 
 		if (alphaSort) {
-			selectedLetter = Session.get('selectedLetter');
+			selectedLetter = g.Session.get('selectedLetter');
 			if (selectedLetter) {
 				query = {$where: function() { return this.name.substr(0, 1) === selectedLetter; }};
 			}
-			sortInfo['name'] = 1;
+			sortInfo.name = 1;
 			sort = {sort: sortInfo};
 		} else if (store) {
 			sortInfo[store] = 1;
 			sort = {sort: sortInfo};
 		}
-		var result = List.find(query, sort);
+		var result = g.List.find(query, sort);
 		if (alphaSort && result.fetch().length === 0) {
-			Session.set('selectedLetter', undefined);
+			g.Session.set('selectedLetter', undefined);
 			return;
 		}
 		return result;
 	};
 
-	Template.editShoppingList.somethingIncluded = function () {
+	g.Template.editShoppingList.somethingIncluded = function () {
 		var result = false;
-		List.find().forEach(function(list) {
+		g.List.find().forEach(function(list) {
 			result = result || list.included;
 		});
 		return result;
 	};
 
-	Template.editShoppingList.storeSet = function () {
-		return !!Session.get("shopByStore");
+	g.Template.editShoppingList.storeSet = function () {
+		return !!g.Session.get("shopByStore");
 	};
 
-	Template.editShoppingList.events({
+	g.Template.editShoppingList.events({
 		'keypress input[name=add]': function (e, t) {
 			if (e.keyCode === 13) {
 				var input = t.find('input[type=text]');
 				if (input.value) {
-					var o = {name: input.value, owner: Meteor.userId(), included:true};
-					Stores.find().forEach(function(store) {
+					var o = {name: input.value, owner: g.Meteor.userId(), included:true};
+					g.Stores.find().forEach(function(store) {
 						o[store._id] = findLowestSortOrder(store._id) - 1;
 					});
-					List.insert(o);
+					g.List.insert(o);
 					checkFirstLetterOfInsertedItem(input.value);
 					input.value = '';
 				}
@@ -55,14 +57,14 @@
 
 	var checkFirstLetterOfInsertedItem = function(item) {
 		var letter = item.substr(0, 1);
-		if (Session.get('selectedLetter')) {
-			Session.set('selectedLetter', letter);
+		if (g.Session.get('selectedLetter')) {
+			g.Session.set('selectedLetter', letter);
 		}
 	};
 
 	var findLowestSortOrder = function(storeId) {
 		var result = Number.MAX_VALUE;
-		List.find().forEach(function(item) {
+		g.List.find().forEach(function(item) {
 			if (item[storeId] < result) {
 				result = item[storeId];
 			}
@@ -70,13 +72,13 @@
 		return result;
 	};
 
-	Template.editShoppingList.rendered = function () {
+	g.Template.editShoppingList.rendered = function () {
 		$('ul[data-sortable="true"]').sortable({stop: function (event, ui) {
-			Deps.nonreactive(function() {
+			g.Deps.nonreactive(function() {
 				var setInfo = {};
 				$(ui.item).parent().find('li').each(function (index, item) {
-					setInfo[Session.get("shopByStore")] = index;
-					List.update({_id: $(item).attr('data-id')}, {$set: setInfo});
+					setInfo[g.Session.get("shopByStore")] = index;
+					g.List.update({_id: $(item).attr('data-id')}, {$set: setInfo});
 				});
 			});
 		}});
@@ -91,65 +93,65 @@
 		}
 	};
 
-	Template.editShoppingItem.events({
+	g.Template.editShoppingItem.events({
 		'click li': function (e, t) {
-			if (!Session.get('edit-' + this._id) && !Session.get('edit-extra-' + this._id)) {
-				List.update({_id: t.data._id}, {$set: {included: t.data.included ? false : true}});
+			if (!g.Session.get('edit-' + this._id) && !g.Session.get('edit-extra-' + this._id)) {
+				g.List.update({_id: t.data._id}, {$set: {included: t.data.included ? false : true}});
 			}
 		},
 		'click .name': function (e, t) {
-			if (Session.get('current-edit')) {
-				Session.set('edit-' + Session.get('current-edit'), false);
+			if (g.Session.get('current-edit')) {
+				g.Session.set('edit-' + g.Session.get('current-edit'), false);
 			}
-			Session.set('edit-' + t.data._id, true);
-			Session.set('current-edit', t.data._id);
-			if (Session.get('current-edit-extra')) {
-				Session.set('edit-extra-' + Session.get('current-edit-extra'), false);
+			g.Session.set('edit-' + t.data._id, true);
+			g.Session.set('current-edit', t.data._id);
+			if (g.Session.get('current-edit-extra')) {
+				g.Session.set('edit-extra-' + g.Session.get('current-edit-extra'), false);
 			}
 			e.stopPropagation();
 		},
 		'click .extra': function (e, t) {
-			if (Session.get('current-edit-extra')) {
-				Session.set('edit-extra-' + Session.get('current-edit-extra'), false);
+			if (g.Session.get('current-edit-extra')) {
+				g.Session.set('edit-extra-' + g.Session.get('current-edit-extra'), false);
 			}
-			Session.set('edit-extra-' + t.data._id, true);
-			Session.set('current-edit-extra', t.data._id);
-			if (Session.get('current-edit')) {
-				Session.set('edit-' + Session.get('current-edit'), false);
+			g.Session.set('edit-extra-' + t.data._id, true);
+			g.Session.set('current-edit-extra', t.data._id);
+			if (g.Session.get('current-edit')) {
+				g.Session.set('edit-' + g.Session.get('current-edit'), false);
 			}
 			e.stopPropagation();
 		},
 		'click .del': function (e, t) {
-			List.remove({_id: t.data._id});
+			g.List.remove({_id: t.data._id});
 			e.stopPropagation();
 		},
 		'keypress input[name=name]': function(e, t) {
 			if (e.keyCode === 13) {
 				if (e.currentTarget.value) {
-					List.update({_id: t.data._id}, {$set: {name: e.currentTarget.value}});
+					g.List.update({_id: t.data._id}, {$set: {name: e.currentTarget.value}});
 				}
-				Session.set('edit-' + t.data._id, false);
+				g.Session.set('edit-' + t.data._id, false);
 			}
 		},
 		'keypress input[name=extra]': function(e, t) {
 			if (e.keyCode === 13) {
-				List.update({_id: t.data._id}, {$set: {extra: e.currentTarget.value}});
-				Session.set('edit-extra-' + t.data._id, false);
+				g.List.update({_id: t.data._id}, {$set: {extra: e.currentTarget.value}});
+				g.Session.set('edit-extra-' + t.data._id, false);
 			}
 		}
 	});
 
-	Template.editShoppingItem.editing = function() {
-		return Session.get('edit-' + this._id);
+	g.Template.editShoppingItem.editing = function() {
+		return g.Session.get('edit-' + this._id);
 	};
 
-	Template.editShoppingItem.editingExtra = function() {
-		return Session.get('edit-extra-' + this._id);
+	g.Template.editShoppingItem.editingExtra = function() {
+		return g.Session.get('edit-extra-' + this._id);
 	};
 
-	Template.editShoppingItem.hasExtra = function() {
-		var list = List.findOne({_id:this._id});
+	g.Template.editShoppingItem.hasExtra = function() {
+		var list = g.List.findOne({_id:this._id});
 		return list && !!list.extra;
 	};
 
-})();
+})(this);

@@ -1,39 +1,47 @@
-/*global Meteor, Session, Template, $ */
+(function(g) {
 
-var perms = {
-	insert: function(userId, doc) {
-		return userId && doc.owner === userId;
-	},
-	update: function(userId, doc, fields, modifier) {
-		return doc && doc.owner === userId;
-	},
-	remove: function(userId, doc) {
-		return doc && doc.owner === userId;
+	"use strict";
+
+	var perms = {
+		insert: function(userId, doc) {
+			return userId && doc.owner === userId;
+		},
+		update: function(userId, doc) {
+			return doc && doc.owner === userId;
+		},
+		remove: function(userId, doc) {
+			return doc && doc.owner === userId;
+		}
+	};
+	var deny = {
+		update: function(userId, docs, fields) {
+			return fields.indexOf('owner') > -1;
+		}
+	};
+
+	g.List = new g.Meteor.Collection('list');
+	g.List.allow(perms);
+	g.List.deny(deny);
+	g.Stores = new g.Meteor.Collection('stores');
+	g.Stores.allow(perms);
+	g.Stores.deny(deny);
+
+	if (g.Meteor.isClient) {
+		g.Meteor.subscribe("list");
+		g.Meteor.subscribe("stores");
 	}
-};
-var deny = {
-	update: function(userId, docs, fields, modifier) {
-		return fields.indexOf('owner') > -1;
+
+	if (g.Meteor.isServer) {
+		g.Meteor.publish("list", function() {
+			return g.List.find({
+				owner: this.userId
+			});
+		});
+		g.Meteor.publish("stores", function() {
+			return g.Stores.find({
+				owner: this.userId
+			});
+		});
 	}
-};
 
-List = new Meteor.Collection('list');
-List.allow(perms);
-List.deny(deny);
-Stores = new Meteor.Collection('stores');
-Stores.allow(perms);
-Stores.deny(deny);
-
-if (Meteor.isClient) {
-	Meteor.subscribe("list");
-	Meteor.subscribe("stores");
-}
-
-if (Meteor.isServer) {
-	Meteor.publish("list", function() {
-		return List.find({owner: this.userId});
-	});
-	Meteor.publish("stores", function() {
-		return Stores.find({owner: this.userId});
-	});
-}
+})(this);

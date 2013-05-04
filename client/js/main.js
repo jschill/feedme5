@@ -1,9 +1,7 @@
-/*global Session, Template */
-
-(function () {
+(function (g) {
 	"use strict";
 
-	Template.shoppingList.userLoggedIn = function () {
-		return !!Meteor.userId();
+	g.Template.shoppingList.userLoggedIn = function () {
+		return !!g.Meteor.userId();
 	};
-}());
+})(this);

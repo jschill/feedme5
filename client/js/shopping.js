@@ -1,159 +1,159 @@
-/*global Meteor, Session, Template, List */
+(function (g) {
 
-(function () {
 	"use strict";
-	Meteor.startup(function () {
-		Deps.autorun(Template.viewShoppingList.list);
-		Session.set('show-checked', true);
-		Session.set('alpha-sort', true);
-		Session.set('shopByStore', undefined);
+
+	g.Meteor.startup(function () {
+		g.Deps.autorun(g.Template.viewShoppingList.list);
+		g.Session.set('show-checked', true);
+		g.Session.set('alpha-sort', true);
+		g.Session.set('shopByStore', undefined);
 	});
 
-	Session.set("viewing", true);
+	g.Session.set("viewing", true);
 
-	Template.shoppingView.viewing = Template.stores.viewing = function () {
-		return Session.get("viewing");
+	g.Template.shoppingView.viewing = g.Template.stores.viewing = function () {
+		return g.Session.get("viewing");
 	};
 
-	Template.stores.stores = function () {
-		return Stores.find();
+	g.Template.stores.stores = function () {
+		return g.Stores.find();
 	};
 
-	Template.stores.alphaSort = function () {
-		return Session.get("alpha-sort");
+	g.Template.stores.alphaSort = function () {
+		return g.Session.get("alpha-sort");
 	};
 
 	var setDefaultSortingForStore = function(storeId) {
 		var index = 0, setInfo = {};
-		List.find({}, {sort: {name:1}}).forEach(function(list) {
+		g.List.find({}, {sort: {name:1}}).forEach(function(list) {
 			setInfo[storeId] = index;
-			List.update({_id: list._id}, {$set: setInfo});
+			g.List.update({_id: list._id}, {$set: setInfo});
 			index += 1;
 		});
 	};
 
-	Template.stores.events({
+	g.Template.stores.events({
 		'keypress input': function (e, t) {
 			if (e.keyCode === 13) {
 				var input = t.find('input');
 				if (input.value) {
-					var storeId = Stores.insert({name: input.value, owner: Meteor.userId()});
+					var storeId = g.Stores.insert({name: input.value, owner: g.Meteor.userId()});
 					input.value = '';
 					setDefaultSortingForStore(storeId);
 				}
 			}
 		},
-		'click [data-alpha-sort="true"]': function (e, t) {
-			Session.set('shopByStore', undefined);
-			Session.set('alpha-sort', true);
+		'click [data-alpha-sort="true"]': function (e) {
+			g.Session.set('shopByStore', undefined);
+			g.Session.set('alpha-sort', true);
 			e.preventDefault();
 		}
 	});
 
 	// TODO: This method is nearly identical to Template.editShoppingList.list. Must consolidate.
-	Template.viewShoppingList.list = function () {
-		var store = Session.get("shopByStore"), sortInfo = {}, sort = {}, query = {included: true}, selectedLetter;
+	g.Template.viewShoppingList.list = function () {
+		var store = g.Session.get("shopByStore"), sortInfo = {}, sort = {}, query = {included: true}, selectedLetter;
 
-		if (Session.get('alpha-sort')) {
-			selectedLetter = Session.get('selectedLetter');
+		if (g.Session.get('alpha-sort')) {
+			selectedLetter = g.Session.get('selectedLetter');
 			if (selectedLetter) {
 				query.$where = function() { return this.name.substr(0, 1) === selectedLetter; };
 			}
-			sortInfo['name'] = 1;
+			sortInfo.name = 1;
 			sort = {sort: sortInfo};
 		} else if (store) {
 			sortInfo[store] = 1;
 			sort = {sort: sortInfo};
 		}
-		return List.find(query, sort);
+		return g.List.find(query, sort);
 	};
 
-	Template.viewShoppingList.toggleLabel = function() {
-		var showChecked = Session.get('show-checked');
+	g.Template.viewShoppingList.toggleLabel = function() {
+		var showChecked = g.Session.get('show-checked');
 		return showChecked ? 'hide' : 'show';
 	};
 
-	Template.viewShoppingList.itemsToShopCount = function() {
+	g.Template.viewShoppingList.itemsToShopCount = function() {
 		var query = {included: true, checked:false}, length;
-		length = List.find(query).fetch().length;
+		length = g.List.find(query).fetch().length;
 		return length === 0 ? undefined : length;
-	}
+	};
 
-	Template.viewShoppingList.events({
-		'click a[data-clear="true"]': function (e, t) {
-			List.find().forEach(function(list) {
-				List.update({_id: list._id}, {$set: {checked: false, extra: ''}});
+	g.Template.viewShoppingList.events({
+		'click a[data-clear="true"]': function (e) {
+			g.List.find().forEach(function(list) {
+				g.List.update({_id: list._id}, {$set: {checked: false, extra: ''}});
 			});
 			e.preventDefault();
 		},
-		'click a[data-toggle="true"]': function (e, t) {
-			Session.set('show-checked', !Session.get('show-checked'));
+		'click a[data-toggle="true"]': function (e) {
+			g.Session.set('show-checked', !g.Session.get('show-checked'));
 			e.preventDefault();
 		}
 	});
 
-	Template.viewShoppingItem.showChecked = function() {
-		var showChecked = Session.get('show-checked');
+	g.Template.viewShoppingItem.showChecked = function() {
+		var showChecked = g.Session.get('show-checked');
 		return !this.checked || showChecked;
 	};
 
-	Template.shoppingView.events({
-		'click a[data-editMode="true"]': function (e, t) {
-			Session.set("viewing", !Session.get("viewing"));
+	g.Template.shoppingView.events({
+		'click a[data-editMode="true"]': function (e) {
+			g.Session.set("viewing", !g.Session.get("viewing"));
 			e.preventDefault();
 		},
-		'click input[name="check-all"]': function (e, t) {
+		'click input[name="check-all"]': function (e) {
 			var currentState = e.currentTarget.checked;
-			List.find().forEach(function(list) {
-				List.update({_id: list._id}, {$set: {included: !!currentState}});
+			g.List.find().forEach(function(list) {
+				g.List.update({_id: list._id}, {$set: {included: !!currentState}});
 			});
 		}
 	});
 
-	Template.viewShoppingItem.events({
+	g.Template.viewShoppingItem.events({
 		'click .name': function (e, t) {
-			List.update({_id: t.data._id}, {$set: {checked: t.data.checked ? false : true}});
+			g.List.update({_id: t.data._id}, {$set: {checked: t.data.checked ? false : true}});
 		}
 	});
 
-	Template.shopByStore.events({
+	g.Template.shopByStore.events({
 		'click .store-name': function (e, t) {
-			Session.set("alpha-sort", false);
-			Session.set("shopByStore", t.data._id);
+			g.Session.set("alpha-sort", false);
+			g.Session.set("shopByStore", t.data._id);
 		},
 		'click .del': function (e, t) {
 			var id = t.data._id;
-			Stores.remove({_id: id});
-			List.find().forEach(function(list) {
+			g.Stores.remove({_id: id});
+			g.List.find().forEach(function(list) {
 				var unsetInfo = {};
 				unsetInfo[id] = '';
-				List.update({_id: list._id}, {$unset: unsetInfo});
+				g.List.update({_id: list._id}, {$unset: unsetInfo});
 			});
 		}
 	});
 
-	Template.shopByStore.selected = function() {
-		var id = Session.get('shopByStore');
+	g.Template.shopByStore.selected = function() {
+		var id = g.Session.get('shopByStore');
 		return id === this._id;
 	};
 
-	Template.showLettersView.letters = function() {
-		var result = {letters:[{letter:'all', selected: !Session.get('selectedLetter')}]};
-		List.find({}, {sort: {name:1}}).forEach(function(item) {
+	g.Template.showLettersView.letters = function() {
+		var result = {letters:[{letter:'all', selected: !g.Session.get('selectedLetter')}]};
+		g.List.find({}, {sort: {name:1}}).forEach(function(item) {
 			var letter = item.name.substr(0, 1);
 			if (!result[letter]) {
 				result[letter] = true;
-				result.letters.push({letter:letter, selected: Session.get('selectedLetter') === letter});
+				result.letters.push({letter:letter, selected: g.Session.get('selectedLetter') === letter});
 			}
 		});
 		return result.letters;
 	};
 
-	Template.showLetter.events({
+	g.Template.showLetter.events({
 		'click .letter': function (e, t) {
-			Session.set('selectedLetter', t.data.letter === 'all' ? undefined : t.data.letter);
+			g.Session.set('selectedLetter', t.data.letter === 'all' ? undefined : t.data.letter);
 			e.preventDefault();
 		}
 	});
 
-}());
+})(this);
