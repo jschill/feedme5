@@ -28,25 +28,7 @@ footer,header,hgroup,menu,nav,section {
 
 /* feedme */
 
-body {
-	font-family: arial, sans-serif;
-	font-size: 130%;
-}
-
-h1 {
-	text-align: center;
-	margin: 20px;
-}
-
-.editMode {
-	font-size: 90%;
-	float: right;
-}
-
-a:hover {
-	color: @main-theme-color;
-}
-
+/* mixins */
 .rounded-corners (@radius: 5px) {
 	-webkit-border-radius: @radius;
 	-moz-border-radius: @radius;
@@ -83,6 +65,7 @@ a:hover {
 	border-bottom-right-radius: @radius;
 }
 
+/* variables */
 @main-theme-color: #5dc8cd;
 @selected-row-color: lighten(@main-theme-color, 30%);
 @muted-color: #d3d3d3;
@@ -98,6 +81,27 @@ a:hover {
 @separator: @muted-color;
 @editing-theme-color: lighten(@muted-color, 15%);
 @editing-text-color: darken(@muted-color, 20%);
+
+/* styles */
+
+body {
+	font-family: arial, sans-serif;
+	font-size: 130%;
+}
+
+h1 {
+	text-align: center;
+	margin: 20px;
+}
+
+.editMode {
+	font-size: 90%;
+	float: right;
+}
+
+a:hover {
+	color: @main-theme-color;
+}
 
 a {
 	text-decoration: none;
@@ -120,9 +124,11 @@ input {
 	padding: 10px;
 	display: inline-block;
 }
+
 .tabs ul {
 	margin: 0;
 }
+
 .button-nav .del {
 	font-size: 80%;
 	font-weight: bold;
@@ -222,13 +228,16 @@ nav ul {
 .listItems li:hover {
 	background-color: @selected-row-color;
 }
+
 .listItems {
 	margin: 10px 0;
 }
+
 .listItems ul {
 	.rounded-corners;
 	border: 1px solid @separator;
 }
+
 .listItems li {
 	padding: 5px;
 	border-bottom: 1px solid @separator;
