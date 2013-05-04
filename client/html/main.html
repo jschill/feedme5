@@ -10,7 +10,10 @@
 
 <template name="shoppingList">
 	{{#if userLoggedIn}}
-		<h1>FeedMe</h1>
-		{{> shoppingView}}
+		<section class="main">
+			<h1>FeedMe</h1>
+
+			{{> shoppingView}}
+		</section>
 	{{/if}}
 </template>

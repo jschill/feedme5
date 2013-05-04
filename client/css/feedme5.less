@@ -67,10 +67,13 @@ footer,header,hgroup,menu,nav,section {
 
 /* variables */
 @main-theme-color: #5dc8cd;
+@main-background-color: #a1e3e6;
+@accent-color: #FF7673;
+/*darken(@main-theme-color, 30%);*/
+@secondary-background-color: #ffffff;
 @selected-row-color: lighten(@main-theme-color, 30%);
 @muted-color: #d3d3d3;
 
-@background-color: #ffffff;
 @inactive-color: @muted-color;
 
 @admin-color: lighten(@muted-color, 12%);
@@ -87,11 +90,19 @@ footer,header,hgroup,menu,nav,section {
 body {
 	font-family: arial, sans-serif;
 	font-size: 130%;
+	background-color: @main-background-color;
 }
 
 h1 {
+	font-size: 170%;
 	text-align: center;
-	margin: 20px;
+	padding: 0px;
+	background-color: @accent-color;
+	color: white;
+}
+
+.content {
+	margin: 10px;	
 }
 
 .editMode {
@@ -154,14 +165,14 @@ input {
 }
 
 nav.admin ul {
-	background-color: white;
+	background-color: @secondary-background-color;
 }
 
 .main {
-	.rounded-corners-bottom;
+	.rounded-corners;
 	border: 1px solid @inactive-color;
 	margin: 0;
-	padding: 10px;
+	background-color: @secondary-background-color;
 }
 
 .main ul {
@@ -253,4 +264,21 @@ nav ul {
 
 .letter-nav .selected {
 	font-weight: bold;
+}
+
+@media screen and (min-width: 660px) {
+	body {
+		max-width: 600px;
+		margin: 0px 30px;
+		position: relative;
+	}
+
+	h1 {
+		margin: 20px 0;
+	}
+
+	.main {
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
 }
