@@ -173,10 +173,10 @@ nav.admin ul {
 	border: 1px solid @inactive-color;
 	margin: 0;
 	background-color: @secondary-background-color;
-}
 
-.main ul {
-	clear: both;
+	ul {
+		clear: both;
+	}
 }
 
 .checked {
@@ -216,51 +216,45 @@ nav ul {
 .button-nav {
 	margin: 10px 0;
 	clear: both;
-}
 
-.button-nav li {
-	.rounded-corners;
-	background-color: @inactive-button-color;
-	border: 1px solid @inactive-button-color;
-	padding: 5px 10px;
-	margin: 5px 0;
-	display: inline-block;
-}
+	li {
+		.rounded-corners;
+		background-color: @inactive-button-color;
+		border: 1px solid @inactive-button-color;
+		padding: 5px 10px;
+		margin: 5px 0;
+		display: inline-block;
+	}
 
- .button-nav li.selected {
-	background-color: @button-color;
-	border-color: @button-color;
-}
-
-.button-nav li:hover {
-	background-color: @button-color;
-	border-color: @button-color;
-}
-
-.listItems .selected {
-	color: black;	
-}
-
-.listItems li:hover {
-	background-color: @selected-row-color;
+ 	li:hover, li.selected {
+		background-color: @button-color;
+		border-color: @button-color;
+	}
 }
 
 .listItems {
 	margin: 10px 0;
-}
+	.selected {
+		color: black;	
+	}
 
-.listItems ul {
-	.rounded-corners;
-	border: 1px solid @separator;
-}
+	ul {
+		.rounded-corners;
+		border: 1px solid @separator;
+	}
 
-.listItems li {
-	padding: 5px;
-	border-bottom: 1px solid @separator;
-}
+	li {
+		padding: 5px;
+		border-bottom: 1px solid @separator;
+	}
 
-.listItems li:last-child{
-	border-bottom: none;
+	.listItems li:last-child{
+		border-bottom: none;
+	}
+
+	li:hover {
+		background-color: @selected-row-color;
+	}
 }
 
 .del {
