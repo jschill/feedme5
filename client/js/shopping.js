@@ -108,7 +108,7 @@
 	});
 
 	Template.shopByStore.events({
-		'click .name': function (e, t) {
+		'click .store-name': function (e, t) {
 			Session.set("alpha-sort", false);
 			Session.set("shopByStore", t.data._id);
 		},
