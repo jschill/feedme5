@@ -3,7 +3,7 @@
 (function () {
 	"use strict";
 	Meteor.startup(function () {
-		Deps.autorun(Template.shoppingView.list);
+		Deps.autorun(Template.viewShoppingList.list);
 		Session.set('show-checked', true);
 		Session.set('alpha-sort', true);
 		Session.set('shopByStore', undefined);
@@ -13,24 +13,6 @@
 
 	Template.shoppingView.viewing = Template.stores.viewing = function () {
 		return Session.get("viewing");
-	};
-
-	// TODO: This method is nearly identical to Template.editShoppingList.list. Must consolidate.
-	Template.shoppingView.list = function () {
-		var store = Session.get("shopByStore"), sortInfo = {}, sort = {}, query = {included: true}, selectedLetter;
-
-		if (Session.get('alpha-sort')) {
-			selectedLetter = Session.get('selectedLetter');
-			if (selectedLetter) {
-				query.$where = function() { return this.name.substr(0, 1) === selectedLetter; };
-			}
-			sortInfo['name'] = 1;
-			sort = {sort: sortInfo};
-		} else if (store) {
-			sortInfo[store] = 1;
-			sort = {sort: sortInfo};
-		}
-		return List.find(query, sort);
 	};
 
 	Template.stores.stores = function () {
@@ -68,17 +50,36 @@
 		}
 	});
 
-	Template.shoppingView.toggleLabel = function() {
+	// TODO: This method is nearly identical to Template.editShoppingList.list. Must consolidate.
+	Template.viewShoppingList.list = function () {
+		var store = Session.get("shopByStore"), sortInfo = {}, sort = {}, query = {included: true}, selectedLetter;
+
+		if (Session.get('alpha-sort')) {
+			selectedLetter = Session.get('selectedLetter');
+			if (selectedLetter) {
+				query.$where = function() { return this.name.substr(0, 1) === selectedLetter; };
+			}
+			sortInfo['name'] = 1;
+			sort = {sort: sortInfo};
+		} else if (store) {
+			sortInfo[store] = 1;
+			sort = {sort: sortInfo};
+		}
+		return List.find(query, sort);
+	};
+
+	Template.viewShoppingList.toggleLabel = function() {
 		var showChecked = Session.get('show-checked');
 		return showChecked ? 'hide' : 'show';
 	};
 
-	Template.viewShoppingItem.showChecked = function() {
-		var showChecked = Session.get('show-checked');
-		return !this.checked || showChecked;
-	};
+	Template.viewShoppingList.itemsToShopCount = function() {
+		var query = {included: true, checked:false}, length;
+		length = List.find(query).fetch().length;
+		return length === 0 ? undefined : length;
+	}
 
-	Template.shoppingView.events({
+	Template.viewShoppingList.events({
 		'click a[data-clear="true"]': function (e, t) {
 			List.find().forEach(function(list) {
 				List.update({_id: list._id}, {$set: {checked: false, extra: ''}});
@@ -88,7 +89,15 @@
 		'click a[data-toggle="true"]': function (e, t) {
 			Session.set('show-checked', !Session.get('show-checked'));
 			e.preventDefault();
-		},
+		}
+	});
+
+	Template.viewShoppingItem.showChecked = function() {
+		var showChecked = Session.get('show-checked');
+		return !this.checked || showChecked;
+	};
+
+	Template.shoppingView.events({
 		'click a[data-editMode="true"]': function (e, t) {
 			Session.set("viewing", !Session.get("viewing"));
 			e.preventDefault();

@@ -26,6 +26,10 @@ footer,header,hgroup,menu,nav,section {
 	display:block;
 }
 
+ul {
+	list-style: none;
+}
+
 /* feedme */
 
 /* mixins */
@@ -68,6 +72,7 @@ footer,header,hgroup,menu,nav,section {
 /* variables */
 @main-theme-color: #5dc8cd;
 @main-background-color: #a1e3e6;
+@notification-color: #FF7673;
 @accent-color: #FF7673;
 @secondary-background-color: #ffffff;
 @selected-row-color: lighten(@main-theme-color, 30%);
@@ -94,7 +99,7 @@ body {
 	background-color: @main-background-color;
 }
 
-h1 {
+.section-heading {
 	font-size: 170%;
 	text-align: center;
 	padding: 0px;
@@ -102,13 +107,26 @@ h1 {
 	color: white;
 }
 
+.notify {
+	color: @notification-color;	
+}
+
+.right-align {
+	float: right;
+}
+
+.clear:after {
+	clear: both;
+	content: '';
+	display: block;
+}
+
 .content {
 	margin: 10px;	
 }
 
-.editMode {
+.edit-mode {
 	font-size: 90%;
-	float: right;
 }
 
 a:hover {
@@ -182,10 +200,6 @@ nav.admin ul {
 	border: 1px solid @inactive-color;
 	margin: 0;
 	background-color: @secondary-background-color;
-
-	ul {
-		clear: both;
-	}
 }
 
 .checked {
@@ -194,10 +208,6 @@ nav.admin ul {
 }
 
 .editing .selected {
-}
-
-ul {
-	list-style: none;
 }
 
 nav ul {
@@ -253,15 +263,10 @@ nav ul {
 	}
 
 	li {
-		padding: 5px 10px;
+		padding: 5px;
 		border-bottom: 1px solid @separator;
 	}
 
-	li:after {
-		clear: both;
-		content: '';
-		display: block;
-	}
 	.listItems li:last-child{
 		border-bottom: none;
 	}
@@ -275,7 +280,6 @@ nav ul {
 	}
 
 }
-
 
 .letter-nav .selected {
 	font-weight: bold;
@@ -295,5 +299,10 @@ nav ul {
 	.main {
 		margin-top: 20px;
 		margin-bottom: 20px;
+	}
+
+	.listItems li {
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 }

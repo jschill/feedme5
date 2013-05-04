@@ -9,7 +9,7 @@
 </template>
 
 <template name="editShoppingItem">
-	<li {{#if included}}class="selected"{{/if}} data-id="{{_id}}">
+	<li class="{{#if included}}selected{{/if}} clear" data-id="{{_id}}">
 		<input type="checkbox" name="checked" {{#if included}}checked{{/if}} >
 		{{#if editing}}
 			<input type="text" name="name" value="{{name}}"/>
