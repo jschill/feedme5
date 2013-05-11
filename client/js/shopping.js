@@ -74,7 +74,7 @@
 	};
 
 	g.Template.viewShoppingList.itemsToShopCount = function() {
-		var query = {included: true, checked:false}, length;
+		var query = {included: true, $or: [{checked: {$exists: false}}, {checked: false}]}, length;
 		length = g.List.find(query).fetch().length;
 		return length === 0 ? undefined : length;
 	};
