@@ -24,11 +24,13 @@
 	<input type="button" class="btn js-buttonToggler" name="buttonClear" value="{{toggleLabel}}" data-toggle="true" />
 
 	<span class="notify right-align clear" data-counter="true">{{itemsToShopCount}}</span>
-	<ul class="list">
-	{{#each list}}
-		{{> viewShoppingItem}}
-	{{/each}}
-	</ul>
+	{{#if list.counter}}
+		<ul class="list">
+		{{#each list.data}}
+			{{> viewShoppingItem}}
+		{{/each}}
+		</ul>
+	{{/if}}
 </template>
 
 <template name="stores">

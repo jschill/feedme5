@@ -1,14 +1,19 @@
 <template name="editShoppingList">
+	{{#unless list}}
+		<p>Add items you want to buy to be able to create a list</p>
+	{{/unless}}
 	<input type="text" name="add" placeholder="add item"/>
-	
 	<label>
 		<input type="checkbox" name="check-all" {{#if somethingIncluded}}checked="checked"{{/if}}> Check all
 	</label>
-	<ul class="editing list" {{#if storeSet}}data-sortable="true"{{else}}data-sortable="false"{{/if}}>
-	{{#each list}}
-		{{> editShoppingItem}}
-	{{/each}}
-	</ul>
+	{{#if list.counter}}
+		<ul class="editing list" {{#if storeSet}}data-sortable="true"{{else}}data-sortable="false"{{/if}}>
+			{{#each list}}
+				{{> editShoppingItem}}
+			{{/each}}
+		</ul>
+	{{else}}
+	{{/if}}
 </template>
 
 <template name="editShoppingItem">

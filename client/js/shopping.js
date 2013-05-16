@@ -65,7 +65,7 @@
 			sortInfo[store] = 1;
 			sort = {sort: sortInfo};
 		}
-		return g.List.find(query, sort);
+		return {data: g.List.find(query, sort), counter: g.List.find(query, sort).count()};
 	};
 
 	g.Template.viewShoppingList.toggleLabel = function() {

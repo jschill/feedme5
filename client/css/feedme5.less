@@ -83,7 +83,9 @@ body {
 
 }
 
-
+input[type="checkbox"] {
+	margin: -3px 0 0;
+}
 
 
 /* feedme */
@@ -342,6 +344,7 @@ nav ul {
 	li {
 		padding: 5px;
 		border-bottom: 1px solid @separator;
+		line-height: 28px;
 	}
 
 	.listItems li:last-child{
@@ -354,6 +357,10 @@ nav ul {
 
 	.del {
 		float:right;
+	}
+	
+	.list input[type=text] {
+		margin-bottom: 0;
 	}
 
 }
