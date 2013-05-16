@@ -14,7 +14,6 @@
 			{{else}}
 				{{> editShoppingList}}
 			{{/if}}
-
 		</section>
 	</div>
 </template>
@@ -24,6 +23,7 @@
 	<input type="button" class="btn js-buttonToggler" name="buttonClear" value="{{toggleLabel}}" data-toggle="true" />
 
 	<span class="notify right-align clear" data-counter="true">{{itemsToShopCount}}</span>
+	<p class="left2buy-heading">{{left2buy}}</p>
 	{{#if list.counter}}
 		<ul class="list">
 		{{#each list.data}}

@@ -68,6 +68,19 @@
 		return {data: g.List.find(query, sort), counter: g.List.find(query, sort).count()};
 	};
 
+	g.Template.viewShoppingList.left2buy = function () {
+		var counter = g.Template.viewShoppingList.list().counter;
+		if (counter > 0) {
+			if (counter === 1) {
+				return 'This is the thing you\'ve left to buy';
+			} else {
+				return 'These are the things you\'ve left to buy';
+			}
+		} else {
+			return 'Your shopping list is empty';
+		}
+	};
+
 	g.Template.viewShoppingList.toggleLabel = function() {
 		var showChecked = g.Session.get('show-checked');
 		return showChecked ? 'Hide completed' : 'Show completed';
