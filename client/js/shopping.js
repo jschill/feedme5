@@ -16,7 +16,7 @@
 	};
 
 	g.Template.stores.stores = function () {
-		return g.Stores.find();
+		return {data: g.Stores.find(), counter: g.Stores.find().count()};
 	};
 
 	g.Template.stores.alphaSort = function () {
@@ -70,7 +70,7 @@
 
 	g.Template.viewShoppingList.toggleLabel = function() {
 		var showChecked = g.Session.get('show-checked');
-		return showChecked ? 'hide' : 'show';
+		return showChecked ? 'Hide completed' : 'Show completed';
 	};
 
 	g.Template.viewShoppingList.itemsToShopCount = function() {
@@ -80,13 +80,13 @@
 	};
 
 	g.Template.viewShoppingList.events({
-		'click a[data-clear="true"]': function (e) {
+		'click input[data-clear="true"]': function (e) {
 			g.List.find().forEach(function(list) {
 				g.List.update({_id: list._id}, {$set: {checked: false, extra: ''}});
 			});
 			e.preventDefault();
 		},
-		'click a[data-toggle="true"]': function (e) {
+		'click input[data-toggle="true"]': function (e) {
 			g.Session.set('show-checked', !g.Session.get('show-checked'));
 			e.preventDefault();
 		}

@@ -1,6 +1,9 @@
 <template name="editShoppingList">
-	<input type="checkbox" name="check-all" {{#if somethingIncluded}}checked="checked"{{/if}}>
 	<input type="text" name="add" placeholder="add item"/>
+	
+	<label>
+		<input type="checkbox" name="check-all" {{#if somethingIncluded}}checked="checked"{{/if}}> Check all
+	</label>
 	<ul class="editing list" {{#if storeSet}}data-sortable="true"{{else}}data-sortable="false"{{/if}}>
 	{{#each list}}
 		{{> editShoppingItem}}
@@ -25,6 +28,6 @@
 				<span onclick="void(0)" class="extra">[+]</span>
 			{{/if}}
 		{{/if}}
-		<a href="#" onclick="void(0)" class="del">X</a>
+		<a href="#" onclick="void(0)" class="del"><i class="close">&times;</i></a>
 	</li>
 </template>

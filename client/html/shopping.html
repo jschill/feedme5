@@ -2,9 +2,9 @@
 <template name="shoppingView">
 	<div class="content">
 		{{#if viewing}}
-			<a href="#" data-editMode="true" class="edit-mode right-align">click to edit</a>
+			<a href="#" data-editMode="true" class="edit-mode right-align">Edit mode</a>
 		{{else}}
-			<a href="#" data-editMode="true" class="edit-mode right-align">done</a>
+			<a href="#" data-editMode="true" class="edit-mode right-align">Shopping mode</a>
 		{{/if}}
 
 		{{> stores}}}
@@ -20,8 +20,9 @@
 </template>
 
 <template name="viewShoppingList">
-	<a href="#" data-clear="true">clear</a> | 
-	<a href="#" data-toggle="true">{{toggleLabel}}</a>
+	<input type="button" class="btn" name="buttonClear" value="Clear" data-clear="true" />
+	<input type="button" class="btn js-buttonToggler" name="buttonClear" value="{{toggleLabel}}" data-toggle="true" />
+
 	<span class="notify right-align clear" data-counter="true">{{itemsToShopCount}}</span>
 	<ul class="list">
 	{{#each list}}
@@ -34,11 +35,15 @@
 	{{#unless viewing}}
 		<input type="text" placeholder="add store"/>
 	{{/unless}}
-	<menu class="button-nav {{#if viewing}}viewing{{/if}}">
-		{{#each stores}}
-			{{> shopByStore}}
-		{{/each}} 
-		| <li onclick="void(0)" data-alpha-sort="true" {{#if alphaSort}}class="selected"{{/if}}>by name</li>
+	<menu class="button-nav{{#if viewing}} viewing{{else}} editing{{/if}}">
+		<ul>
+			{{#each stores.data}}
+				{{> shopByStore}}
+			{{/each}} 
+			<li onclick="void(0)" data-alpha-sort="true" {{#if alphaSort}}class="selected"{{/if}}>
+				<input type="button" class="btn btn-info" name="store" value="by name" />
+			</li>
+		</ul>
 	</menu>
 	{{#if alphaSort}}
 		{{> showLettersView}}
@@ -62,9 +67,12 @@
 </template>
 
 <template name="shopByStore">
+
+
 	<li onclick="void(0)" class="store-name {{#if selected}}selected{{/if}}">
-		<span>{{name}}</span>
-		<a href="#" class="del">X</a>
+		<a href="#" class="del"><i class="close">&times;</i></a>
+		<input type="button" class="btn btn-info" name="store" value="{{name}}" />
+		<!--<span>{{name}}</span>-->
 	</li>
 </template>
 

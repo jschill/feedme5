@@ -4,14 +4,16 @@
 </head>
 
 <body>
-	{{loginButtons}}
-	{{> shoppingList}}
+	<div class="page">
+		{{loginButtons align="right"}}
+		{{> shoppingList}}
+	</div>
 </body>
 
 <template name="shoppingList">
+	<h1 class="section-heading">FeedMe</h1>
 	{{#if userLoggedIn}}
 		<section class="main">
-			<h1 class="section-heading">FeedMe</h1>
 
 			{{> shoppingView}}
 		</section>
