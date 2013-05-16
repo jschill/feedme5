@@ -8,11 +8,10 @@
 	</label>
 	{{#if list.counter}}
 		<ul class="editing list" {{#if storeSet}}data-sortable="true"{{else}}data-sortable="false"{{/if}}>
-			{{#each list}}
+			{{#each list.data}}
 				{{> editShoppingItem}}
 			{{/each}}
 		</ul>
-	{{else}}
 	{{/if}}
 </template>
 

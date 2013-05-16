@@ -23,7 +23,7 @@
 			g.Session.set('selectedLetter', undefined);
 			return;
 		}
-		return result;
+		return {data: result, counter: result.count()};
 	};
 
 	g.Template.editShoppingList.somethingIncluded = function () {
